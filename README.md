@@ -324,6 +324,61 @@ Given that `mother` accepts either reference value, or a freetext, it needs to v
 }
 ```
 
+## Use of DTO
+
+Using [DTO](src/main/java/com/bwgjoseph/springmvcdynamicuserinput/dto/PersonDTO.java) as the request payload to client makes the implementation slightly easier where although the logic to validate stays largely the same but we don't need to use `@JsonComponent` or `RequestBodyAdvice` to achieve the same outcome
+
+In the `PersonDTO`, it simply takes in `String` for the various input no matter which one it is, and then it uses [Spring Converter Class](src/main/java/com/bwgjoseph/springmvcdynamicuserinput/PersonDTOtoPersonConverter.java) to map into the domain object
+
+```java
+record PersonDTO(String name, String nationality, String placeOfBirth, String father, String mother) { }
+```
+
+```json
+// given
+{
+    "name": "hello",
+    "nationality": "SINGAPOREAN",
+    "placeOfBirth": "SINGAPORE",
+    "father": "633421fb64082a7561f90bd0",
+    "mother": "non-reference freetext"
+}
+
+// output
+{
+    "id": "633455a164062158c4895980",
+    "name": "hello",
+    "nationality": {
+        "value": "SINGAPOREAN",
+        "inputType": "SELECTION",
+        "selectionValue": "SINGAPOREAN",
+        "validInputType": true
+    },
+    "placeOfBirth": {
+        "value": "SINGAPORE",
+        "inputType": "SELECTION",
+        "selectionValue": "SINGAPORE",
+        "validInputType": true
+    },
+    "father": {
+        "value": "633421fb64082a7561f90bd0",
+        "inputType": "REFERENCE",
+        "collection": "person",
+        "referenceValue": null,
+        "validInputType": true
+    },
+    "mother": {
+        "value": "non-reference freetext",
+        "inputType": "FREETEXT",
+        "collection": "person",
+        "referenceValue": null,
+        "validInputType": true
+    }
+}
+```
+
+As shown above, the output is exactly the same as the previously method. Note that I have not consider using `PersonResponseDTO` to map the domain object to the response to client
+
 
 ## To be further explore
 
@@ -354,3 +409,5 @@ Given that `mother` accepts either reference value, or a freetext, it needs to v
 At the minimum, it should works as a `checksum`
 
 - Is there any reason to have both `Reference` and `ReferenceFreeText`? Will it always just be `ReferenceFreeText` only? We should provide it nonetheless?
+
+- Would it be useful to expose two different API response using `@JsonView` for `service-call` and `consumer-call`?

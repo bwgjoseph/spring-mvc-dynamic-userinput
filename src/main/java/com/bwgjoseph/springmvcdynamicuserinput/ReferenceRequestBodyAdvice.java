@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdvice;
 
 import com.bwgjoseph.springmvcdynamicuserinput.domain.MotherUserInput;
@@ -15,7 +14,7 @@ import com.bwgjoseph.springmvcdynamicuserinput.domain.Person;
 
 import lombok.RequiredArgsConstructor;
 
-@RestControllerAdvice
+// @RestControllerAdvice
 @RequiredArgsConstructor
 public class ReferenceRequestBodyAdvice implements RequestBodyAdvice {
     private final PersonRepository personRepository;
