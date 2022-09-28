@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Getter
-@Builder
+@Builder(toBuilder = true)
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,6 +21,12 @@ public class Person {
     @Id
     private String id;
     private String name;
+    // Selection
     private NationalityUserInput nationality;
+    // SelectionFreeText
     private PlaceOfBirthUserInput placeOfBirth;
+    // Reference
+    private FatherUserInput father;
+    // ReferenceFreeText
+    private MotherUserInput mother;
 }
