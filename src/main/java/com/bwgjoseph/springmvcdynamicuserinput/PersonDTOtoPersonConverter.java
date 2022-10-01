@@ -26,8 +26,8 @@ public class PersonDTOtoPersonConverter implements Converter<PersonDTO, Person> 
     public Person convert(PersonDTO personDTO) {
         return Person.builder()
             .name(personDTO.name())
-            .nationality(new NationalityUserInput(personDTO.nationality()))
-            .placeOfBirth(new PlaceOfBirthUserInput(personDTO.placeOfBirth()))
+            .nationality(NationalityUserInput.of(personDTO.nationality()))
+            .placeOfBirth(PlaceOfBirthUserInput.of(personDTO.placeOfBirth()))
             .father(this.initFather(personDTO.father()))
             .mother(this.initMother(personDTO.mother()))
             .build();

@@ -1,5 +1,7 @@
 package com.bwgjoseph.springmvcdynamicuserinput.domain;
 
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import com.bwgjoseph.springmvcdynamicuserinput.userinput.InputType;
 import com.bwgjoseph.springmvcdynamicuserinput.userinput.Selection;
 
@@ -14,25 +16,35 @@ public class NationalityUserInput implements Selection<Nationality> {
      */
     private String value;
     /**
-     * Stores the selection value
+     * Map to the respective Enum based on the input value
      */
+    @Field("selectionValue")
     private Nationality nationality;
     /**
-     * InputType is inferred based on the value
-     * *may not work for reference since it requires external call to validate
-     *
-     * How to ensure the inputType is within the constraint of `getValidInputType`?
+     * This value should be inferred based on the input
      */
     private InputType inputType;
 
     /**
+     * Private constructor that only called by static method
      *
-     * @param input
+     * @param inputValue actual input value
+     * @param nationality actual enum value
      */
-    public NationalityUserInput(String input) {
-        this.nationality = Nationality.valueOf(input);
-        this.inputType = InputType.SELECTION;
-        this.value = input;
+    NationalityUserInput(String inputValue, Nationality nationality) {
+        this.value = inputValue;
+        this.nationality = nationality;
+        this.inputType = nationality.getInferredInputType();
+    }
+
+    /**
+     * Expose static method to init the class
+     *
+     * @param inputValue actual input value
+     * @return NationalityUserInput instance
+     */
+    public static NationalityUserInput of(String inputValue) {
+        return new NationalityUserInput(inputValue, Nationality.valueOf(inputValue));
     }
 
     @Override
@@ -41,12 +53,12 @@ public class NationalityUserInput implements Selection<Nationality> {
     }
 
     @Override
-    public Nationality getSelectionValue() {
-        return this.nationality;
+    public InputType getInputType() {
+        return this.inputType;
     }
 
     @Override
-    public InputType getInputType() {
-        return this.inputType;
+    public Nationality getSelectionValue() {
+        return this.nationality;
     }
 }

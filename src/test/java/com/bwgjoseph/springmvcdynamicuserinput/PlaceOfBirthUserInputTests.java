@@ -12,21 +12,19 @@ public class PlaceOfBirthUserInputTests {
 
     @Test
     void givenPobAsSingapore_shouldSetInputTypeAsSelection() {
-        this.cut = new PlaceOfBirthUserInput("SINGAPORE");
+        this.cut = PlaceOfBirthUserInput.of("SINGAPORE");
 
         Assertions.assertThat(this.cut.getValue()).isEqualTo("SINGAPORE");
         Assertions.assertThat(this.cut.getSelectionValue()).isEqualTo(Country.SINGAPORE);
         Assertions.assertThat(this.cut.getInputType()).isEqualTo(InputType.SELECTION);
-        Assertions.assertThat(this.cut.getValidInputType()).isTrue();
     }
 
     @Test
     void givenPobAsSomethingElse_shouldSetInputTypeAsFreeText() {
-        this.cut = new PlaceOfBirthUserInput("SOMETHING ELSE");
+        this.cut = PlaceOfBirthUserInput.of("SOMETHING ELSE");
 
         Assertions.assertThat(this.cut.getValue()).isEqualTo("SOMETHING ELSE");
         Assertions.assertThat(this.cut.getSelectionValue()).isEqualTo(Country.OTHERS);
         Assertions.assertThat(this.cut.getInputType()).isEqualTo(InputType.FREETEXT);
-        Assertions.assertThat(this.cut.getValidInputType()).isTrue();
     }
 }
