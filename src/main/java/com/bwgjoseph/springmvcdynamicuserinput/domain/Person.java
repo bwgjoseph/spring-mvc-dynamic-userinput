@@ -4,6 +4,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.bwgjoseph.springmvcdynamicuserinput.userinput.ReferenceEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,7 +20,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @Document("person")
 @TypeAlias("person")
-public class Person {
+public class Person implements ReferenceEntity {
+    private static String COLLECTION_NAME = "person";
+
     @Id
     private String id;
     private String name;
@@ -29,4 +34,9 @@ public class Person {
     private FatherUserInput father;
     // ReferenceFreeText
     private MotherUserInput mother;
+
+    @JsonIgnore
+    public String getCollectionName() {
+        return Person.COLLECTION_NAME;
+    }
 }

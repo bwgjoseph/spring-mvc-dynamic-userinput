@@ -240,10 +240,7 @@ Given an document with `_id: 633421fb64082a7561f90bd0` exist in the database
     "father": {
         "value": "633421fb64082a7561f90bd0",
         "inputType": "REFERENCE",
-        "collection": "person",
-        // probably only if resolved then person object will be populated
-        "referenceValue": null,
-        "validInputType": true
+        "collectionName": "person"
     }
 }
 ```
@@ -266,9 +263,7 @@ Given that `father` accept only reference value, it has to ensure that if the re
     "father": {
         "value": "633421fb64082a7561f90bd0",
         "inputType": "REFERENCE",
-        "collection": "person",
-        "referenceValue": null,
-        "validInputType": true
+        "collectionName": "person"
     }
 }
 ```
@@ -313,9 +308,7 @@ Given that `mother` accepts either reference value, or a freetext, it needs to v
     "mother": {
         "value": "non-reference freetext",
         "inputType": "FREETEXT",
-        "collection": "person",
-        "referenceValue": null,
-        "validInputType": true
+        "collectionName": ""
     }
 }
 ```
@@ -357,16 +350,12 @@ record PersonDTO(String name, String nationality, String placeOfBirth, String fa
     "father": {
         "value": "633421fb64082a7561f90bd0",
         "inputType": "REFERENCE",
-        "collection": "person",
-        "referenceValue": null,
-        "validInputType": true
+        "collectionName": "person"
     },
     "mother": {
         "value": "non-reference freetext",
         "inputType": "FREETEXT",
-        "collection": "person",
-        "referenceValue": null,
-        "validInputType": true
+        "collectionName": ""
     }
 }
 ```

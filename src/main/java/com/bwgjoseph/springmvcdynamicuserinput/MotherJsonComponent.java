@@ -33,7 +33,7 @@ public class MotherJsonComponent extends JsonDeserializer<Person> {
         Optional<Person> mother = this.personRepository.findById(motherValue.textValue());
 
         if (mother.isPresent()) {
-            return Person.builder().mother(new MotherUserInput(mother.get())).build();
+            return Person.builder().mother(MotherUserInput.ofReferenceType(motherValue.textValue(), mother.get())).build();
         }
 
         return null;

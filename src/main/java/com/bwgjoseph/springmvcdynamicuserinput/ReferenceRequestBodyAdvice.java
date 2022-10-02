@@ -36,7 +36,7 @@ public class ReferenceRequestBodyAdvice implements RequestBodyAdvice {
             Optional<Person> mother = this.personRepository.findById(inputValue);
 
             if (mother.isPresent()) {
-                return person.toBuilder().mother(new MotherUserInput(inputValue, true)).build();
+                return person.toBuilder().mother(MotherUserInput.ofReferenceType(inputValue, mother.get())).build();
             }
         }
 

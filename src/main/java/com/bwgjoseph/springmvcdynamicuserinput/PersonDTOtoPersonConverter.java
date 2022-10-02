@@ -40,17 +40,17 @@ public class PersonDTOtoPersonConverter implements Converter<PersonDTO, Person> 
             throw new EntityNotFoundException("Given father value of " + inputValue + " is not valid");
         }
 
-        return new FatherUserInput(inputValue);
+        return FatherUserInput.of(inputValue, father.get());
     }
 
     private MotherUserInput initMother(String inputValue) {
         Optional<Person> mother = this.personRepository.findById(inputValue);
 
         if (mother.isPresent()) {
-            return new MotherUserInput(inputValue, true);
+            return MotherUserInput.ofReferenceType(inputValue, mother.get());
         }
 
-        return new MotherUserInput(inputValue, false);
+        return MotherUserInput.ofFreeTextType(inputValue);
     }
 
 }
