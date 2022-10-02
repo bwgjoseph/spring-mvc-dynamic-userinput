@@ -29,6 +29,8 @@ public class Person {
 }
 ```
 
+![userinput](userinput.png)
+
 ## Background
 
 Given the different ways user can input the data from client side (UI), how can the design of the data structure allows for the various input types as described above?
@@ -406,5 +408,10 @@ At the minimum, it should works as a `checksum`
 
 - Technically, I could combine both `Selection` and `SelectionFreeText` into one, what should the one to be removed if decided to? Or is there any reason I can't do so?
 
+# References
 
-- Would it be useful to expose two different API response using `@JsonView` for `service-call` and `consumer-call`?
+- [java-extending-enums](https://www.baeldung.com/java-extending-enums)
+- [java-enum-polymorphism-pattern](https://medium.com/javarevisited/java-enum-polymorphism-pattern-7cbc4e2b92ac)
+- [java-enums-you-have-grace-elegance-and-power-and-this-is-what-i-love](http://cyrille.martraire.com/2012/08/java-enums-you-have-grace-elegance-and-power-and-this-is-what-i-love/)
+- [get-values-of-generic-enum-that-implements-an-interface](https://stackoverflow.com/questions/64595676/get-values-of-generic-enum-that-implements-an-interface)
+- [spring-enum-request-param](https://www.baeldung.com/spring-enum-request-param)
