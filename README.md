@@ -70,19 +70,17 @@ And the document that will be stored in the database
 
 ```json
 {
-    "id": "63344e08508c95326902ff9b",
+    "id": "63393dd4acc4d97a2c71f3bf",
     "name": "hello",
     "nationality": {
         "value": "SINGAPOREAN",
-        "inputType": "SELECTION",
         "selectionValue": "SINGAPOREAN",
-        "validInputType": true
+        "inputType": "SELECTION"
     },
     "placeOfBirth": {
-        "value": "SINGAPORE",
-        "inputType": "SELECTION",
-        "selectionValue": "SINGAPORE",
-        "validInputType": true
+        "value": "SINGAPO1RE",
+        "selectionValue": "OTHERS",
+        "inputType": "FREETEXT"
     },
     "father": {
         "value": "633421fb64082a7561f90bd0",
@@ -122,9 +120,8 @@ Given that `nationality` accepts only `SINGAPOREAN and MALAYSIAN`, it can be onl
     "name": "hello",
     "nationality": {
         "value": "SINGAPOREAN",
-        "inputType": "SELECTION",
         "selectionValue": "SINGAPOREAN",
-        "validInputType": true
+        "inputType": "SELECTION"
     }
 }
 ```
@@ -164,9 +161,8 @@ Given that `placeOfBirth` accepts only `SINGAPORE, MALAYSIA and OTHERS`, we can 
     "name": "hello",
     "placeOfBirth": {
         "value": "SINGAPORE",
-        "inputType": "SELECTION",
         "selectionValue": "SINGAPORE",
-        "validInputType": true
+        "inputType": "SELECTION"
     }
 }
 ```
@@ -185,9 +181,8 @@ Given that `placeOfBirth` accepts only `SINGAPORE, MALAYSIA and OTHERS`, we can 
     "name": "hello",
     "placeOfBirth": {
         "value": "SOMETHING ELSE",
-        "inputType": "FREETEXT",
         "selectionValue": "OTHERS",
-        "validInputType": true
+        "inputType": "FREETEXT"
     }
 }
 ```
@@ -209,14 +204,15 @@ Do we take in `OTHERS` as a valid input? Or it should throw an `BAD_REQUEST`? Be
     "name": "hello",
     "placeOfBirth": {
         "value": "OTHERS",
-        "inputType": "SELECTION",
         "selectionValue": "OTHERS",
-        "validInputType": true
+        "inputType": "SELECTION"
     }
 }
 ```
 
 ## Reference
+
+`Selection` and `Reference` have to be treated differently hence the interface will be slightly different as a result. For `Selection` type, we can have the `enum class` to implements `UserInput` such that it will be controlled using `enum` and override when needed. But, for `Reference` type, unless we have a way to let each of the `ReferenceEntity` to implement and return the `InputType` value, it would not be feasible
 
 ### First Attempt
 
@@ -350,15 +346,13 @@ record PersonDTO(String name, String nationality, String placeOfBirth, String fa
     "name": "hello",
     "nationality": {
         "value": "SINGAPOREAN",
-        "inputType": "SELECTION",
         "selectionValue": "SINGAPOREAN",
-        "validInputType": true
+        "inputType": "SELECTION"
     },
     "placeOfBirth": {
         "value": "SINGAPORE",
-        "inputType": "SELECTION",
         "selectionValue": "SINGAPORE",
-        "validInputType": true
+        "inputType": "SELECTION"
     },
     "father": {
         "value": "633421fb64082a7561f90bd0",
@@ -408,6 +402,20 @@ As shown above, the output is exactly the same as the previously method. Note th
 
 At the minimum, it should works as a `checksum`
 
+**Based on current PR proposal, this field will no longer exist, and the responsibility to declare the correct `inputType` lies on the respective implementing class
+
 - Is there any reason to have both `Reference` and `ReferenceFreeText`? Will it always just be `ReferenceFreeText` only? We should provide it nonetheless?
+  - There will be use-case where this is valid, hence, both should be supported
+
+- Would it be useful to expose two different API response using `@JsonView` for `service-call` and `consumer-call`?
+
+- What would the worst case scenario when the `enum` does not get updated as it changes (i.e not in sync with the values from source or database)
+  - Not in sync with source; source updated but enum not reflected, to clarify, source could be as simple as client and server list
+    - This would have to depends on the `InputType` where `Selection` would have issue, but not `SelectionFreeText` as it could be just casted to `OTHERS`
+  - Not in sync with database; enum updated but there are old documents referring to old enum value
+    - Generally, when the enum value change, migration script would have to be written to handle for that conversion as well
+
+- Technically, I could combine both `Selection` and `SelectionFreeText` into one, what should the one to be removed if decided to? Or is there any reason I can't do so?
+
 
 - Would it be useful to expose two different API response using `@JsonView` for `service-call` and `consumer-call`?

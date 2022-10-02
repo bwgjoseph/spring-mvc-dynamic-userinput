@@ -16,7 +16,7 @@ public class PlaceOfBirthUserInput implements SelectionFreeText<Country> {
     /**
      * Stores the selection value
      */
-    private Country country;
+    private Country selectionValue;
     /**
      * InputType is inferred based on the value
      * *may not work for reference since it requires external call to validate
@@ -24,6 +24,14 @@ public class PlaceOfBirthUserInput implements SelectionFreeText<Country> {
      * How to ensure the inputType is within the constraint of `getValidInputType`?
      */
     private InputType inputType;
+
+    public static PlaceOfBirthUserInput of(String inputValue) {
+        try {
+            return new PlaceOfBirthUserInput(inputValue, Country.valueOf(inputValue));
+        } catch (IllegalArgumentException e) {
+            return new PlaceOfBirthUserInput(inputValue, Country.valueOf("OTHERS"));
+        }
+    }
 
     /**
      * Client should not pass `OTHERS` if it is selected, instead, they should pass the `freetext` value
@@ -35,17 +43,10 @@ public class PlaceOfBirthUserInput implements SelectionFreeText<Country> {
      *
      * @param input input value
      */
-    public PlaceOfBirthUserInput(String input) {
+    public PlaceOfBirthUserInput(String input, Country country) {
         this.value = input;
-        // if we can't cast it to the enum we expect,
-        // then we can infer that this is a `freetext` rather than a `selection`
-        try {
-            this.country = Country.valueOf(input);
-            this.inputType = InputType.SELECTION;
-        } catch (IllegalArgumentException e) {
-            this.country = Country.valueOf("OTHERS");
-            this.inputType = InputType.FREETEXT;
-        }
+        this.selectionValue = country;
+        this.inputType = country.getInferredInputType();
     }
 
     @Override
@@ -60,7 +61,7 @@ public class PlaceOfBirthUserInput implements SelectionFreeText<Country> {
 
     @Override
     public Country getSelectionValue() {
-        return this.country;
+        return this.selectionValue;
     }
 
 }
