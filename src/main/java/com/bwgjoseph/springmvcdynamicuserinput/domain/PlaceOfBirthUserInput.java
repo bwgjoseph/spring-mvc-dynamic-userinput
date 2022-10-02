@@ -1,7 +1,5 @@
 package com.bwgjoseph.springmvcdynamicuserinput.domain;
 
-import org.springframework.data.mongodb.core.mapping.Field;
-
 import com.bwgjoseph.springmvcdynamicuserinput.userinput.InputType;
 import com.bwgjoseph.springmvcdynamicuserinput.userinput.SelectionFreeText;
 
@@ -18,8 +16,7 @@ public class PlaceOfBirthUserInput implements SelectionFreeText<Country> {
     /**
      * Stores the selection value
      */
-    @Field("selectionValue")
-    private Country country;
+    private Country selectionValue;
     /**
      * InputType is inferred based on the value
      * *may not work for reference since it requires external call to validate
@@ -48,7 +45,7 @@ public class PlaceOfBirthUserInput implements SelectionFreeText<Country> {
      */
     public PlaceOfBirthUserInput(String input, Country country) {
         this.value = input;
-        this.country = country;
+        this.selectionValue = country;
         this.inputType = country.getInferredInputType();
     }
 
@@ -64,7 +61,7 @@ public class PlaceOfBirthUserInput implements SelectionFreeText<Country> {
 
     @Override
     public Country getSelectionValue() {
-        return this.country;
+        return this.selectionValue;
     }
 
 }

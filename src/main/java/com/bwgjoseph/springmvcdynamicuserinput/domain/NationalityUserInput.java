@@ -1,7 +1,5 @@
 package com.bwgjoseph.springmvcdynamicuserinput.domain;
 
-import org.springframework.data.mongodb.core.mapping.Field;
-
 import com.bwgjoseph.springmvcdynamicuserinput.userinput.InputType;
 import com.bwgjoseph.springmvcdynamicuserinput.userinput.Selection;
 
@@ -18,8 +16,7 @@ public class NationalityUserInput implements Selection<Nationality> {
     /**
      * Map to the respective Enum based on the input value
      */
-    @Field("selectionValue")
-    private Nationality nationality;
+    private Nationality selectionValue;
     /**
      * This value should be inferred based on the input
      */
@@ -33,7 +30,7 @@ public class NationalityUserInput implements Selection<Nationality> {
      */
     NationalityUserInput(String inputValue, Nationality nationality) {
         this.value = inputValue;
-        this.nationality = nationality;
+        this.selectionValue = nationality;
         this.inputType = nationality.getInferredInputType();
     }
 
@@ -59,6 +56,6 @@ public class NationalityUserInput implements Selection<Nationality> {
 
     @Override
     public Nationality getSelectionValue() {
-        return this.nationality;
+        return this.selectionValue;
     }
 }
