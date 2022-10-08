@@ -1,27 +1,13 @@
 package com.bwgjoseph.springmvcdynamicuserinput.domain;
 
-import com.bwgjoseph.springmvcdynamicuserinput.userinput.InputType;
-import com.bwgjoseph.springmvcdynamicuserinput.userinput.Selection;
+import com.bwgjoseph.springmvcdynamicuserinput.abstractuserinput.AbstractSelectionUserInput;
 
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@ToString
 @NoArgsConstructor
-public class NationalityUserInput implements Selection<Nationality> {
-    /**
-     * Stores the actual value input by the user, no matter the input type
-     */
-    private String value;
-    /**
-     * Map to the respective Enum based on the input value
-     */
-    private Nationality selectionValue;
-    /**
-     * This value should be inferred based on the input
-     */
-    private InputType inputType;
-
+@ToString(callSuper = true)
+public class NationalityUserInput extends AbstractSelectionUserInput<Nationality> {
     /**
      * Private constructor that only called by static method
      *
@@ -29,9 +15,7 @@ public class NationalityUserInput implements Selection<Nationality> {
      * @param nationality actual enum value
      */
     NationalityUserInput(String inputValue, Nationality nationality) {
-        this.value = inputValue;
-        this.selectionValue = nationality;
-        this.inputType = nationality.getInferredInputType();
+        super(inputValue, nationality);
     }
 
     /**
@@ -44,18 +28,4 @@ public class NationalityUserInput implements Selection<Nationality> {
         return new NationalityUserInput(inputValue, Nationality.valueOf(inputValue));
     }
 
-    @Override
-    public String getValue() {
-        return this.value;
-    }
-
-    @Override
-    public InputType getInputType() {
-        return this.inputType;
-    }
-
-    @Override
-    public Nationality getSelectionValue() {
-        return this.selectionValue;
-    }
 }
