@@ -23,21 +23,21 @@ public abstract class AbstractReferenceUserInput<R extends ReferenceEntity> impl
     /**
      * Stores the actual value input by the user, no matter the input type
      */
-    private String value;
+    protected String value;
     /**
      * Map to the respective ReferenceEntity based on the input value
      */
     @Transient
     @JsonIgnore
-    private R referenceValue;
+    protected R referenceValue;
     /**
      * This value should be inferred based on the input
      */
-    private InputType inputType;
+    protected InputType inputType;
     /**
      * The collection of the reference value
      */
-    private String collection;
+    protected String collection;
 
     protected AbstractReferenceUserInput(String inputValue, InputType inputType) {
         this.value = inputValue;

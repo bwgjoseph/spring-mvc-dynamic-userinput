@@ -18,15 +18,15 @@ public abstract class AbstractSelectionUserInput<S extends Enum<S> & InferredInp
     /**
      * Stores the actual value input by the user, no matter the input type
      */
-    private String value;
+    protected String value;
     /**
      * Map to the respective Enum based on the input value
      */
-    private S selectionValue;
+    protected S selectionValue;
     /**
      * This value should be inferred based on the input
      */
-    private InputType inputType;
+    protected InputType inputType;
 
     protected AbstractSelectionUserInput(String inputValue, S selection) {
         this.value = inputValue;
