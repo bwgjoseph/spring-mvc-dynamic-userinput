@@ -10,7 +10,7 @@ import lombok.ToString;
 /**
  * Base class for Selection And SelectionFreeText User Input
  * <p>
- * Accept a generic type <b>S</b> that of a bounded parameter {@link Enum} & {@link InferredInputType}
+ * Accept a generic type <b>S</b> of a bounded parameter of {@link Enum} & {@link InferredInputType}
  */
 @ToString
 @NoArgsConstructor
