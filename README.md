@@ -29,7 +29,7 @@ public class Person {
 }
 ```
 
-![userinput](userinput.png)
+![userinputv2](userinputv2.png)
 
 ## Background
 
@@ -76,28 +76,24 @@ And the document that will be stored in the database
     "name": "hello",
     "nationality": {
         "value": "SINGAPOREAN",
-        "selectionValue": "SINGAPOREAN",
-        "inputType": "SELECTION"
+        "inputType": "SELECTION",
+        "selectionValue": "SINGAPOREAN"
     },
     "placeOfBirth": {
         "value": "SINGAPO1RE",
-        "selectionValue": "OTHERS",
-        "inputType": "FREETEXT"
+        "inputType": "FREETEXT",
+        "selectionValue": "OTHERS"
     },
     "father": {
         "value": "633421fb64082a7561f90bd0",
         "inputType": "REFERENCE",
-        "collection": "person",
-        "referenceValue": null,
-        "validInputType": true
+        "collection": "person"
     },
     "mother": {
         "value": "non-reference freetext",
         "inputType": "FREETEXT",
-        "collection": "person",
-        "referenceValue": null,
-        "validInputType": true
-    }
+        "collection": ""
+    },
 }
 ```
 
@@ -122,8 +118,8 @@ Given that `nationality` accepts only `SINGAPOREAN and MALAYSIAN`, it can be onl
     "name": "hello",
     "nationality": {
         "value": "SINGAPOREAN",
-        "selectionValue": "SINGAPOREAN",
-        "inputType": "SELECTION"
+        "inputType": "SELECTION",
+        "selectionValue": "SINGAPOREAN"
     }
 }
 ```
@@ -163,8 +159,8 @@ Given that `placeOfBirth` accepts only `SINGAPORE, MALAYSIA and OTHERS`, we can 
     "name": "hello",
     "placeOfBirth": {
         "value": "SINGAPORE",
-        "selectionValue": "SINGAPORE",
-        "inputType": "SELECTION"
+        "inputType": "SELECTION",
+        "selectionValue": "SINGAPORE"
     }
 }
 ```
@@ -206,8 +202,8 @@ Do we take in `OTHERS` as a valid input? Or it should throw an `BAD_REQUEST`? Be
     "name": "hello",
     "placeOfBirth": {
         "value": "OTHERS",
-        "selectionValue": "OTHERS",
-        "inputType": "SELECTION"
+        "inputType": "SELECTION",
+        "selectionValue": "OTHERS"
     }
 }
 ```
@@ -341,13 +337,13 @@ record PersonDTO(String name, String nationality, String placeOfBirth, String fa
     "name": "hello",
     "nationality": {
         "value": "SINGAPOREAN",
-        "selectionValue": "SINGAPOREAN",
-        "inputType": "SELECTION"
+        "inputType": "SELECTION",
+        "selectionValue": "SINGAPOREAN"
     },
     "placeOfBirth": {
         "value": "SINGAPORE",
-        "selectionValue": "SINGAPORE",
-        "inputType": "SELECTION"
+        "inputType": "SELECTION",
+        "selectionValue": "SINGAPORE"
     },
     "father": {
         "value": "633421fb64082a7561f90bd0",
@@ -407,6 +403,7 @@ At the minimum, it should works as a `checksum`
     - Generally, when the enum value change, migration script would have to be written to handle for that conversion as well
 
 - Technically, I could combine both `Selection` and `SelectionFreeText` into one, what should the one to be removed if decided to? Or is there any reason I can't do so?
+  - Further work seem to suggest that `Selection` should just be handled as a `enum` by itself without needed to be a `xxUserInput` since there is no need for any logic, and the wrapper class for `Selection` is pretty much useless
 
 # References
 
@@ -415,3 +412,4 @@ At the minimum, it should works as a `checksum`
 - [java-enums-you-have-grace-elegance-and-power-and-this-is-what-i-love](http://cyrille.martraire.com/2012/08/java-enums-you-have-grace-elegance-and-power-and-this-is-what-i-love/)
 - [get-values-of-generic-enum-that-implements-an-interface](https://stackoverflow.com/questions/64595676/get-values-of-generic-enum-that-implements-an-interface)
 - [spring-enum-request-param](https://www.baeldung.com/spring-enum-request-param)
+

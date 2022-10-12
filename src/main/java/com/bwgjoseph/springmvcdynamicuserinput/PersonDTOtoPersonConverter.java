@@ -52,5 +52,4 @@ public class PersonDTOtoPersonConverter implements Converter<PersonDTO, Person> 
 
         return MotherUserInput.ofFreeTextType(inputValue);
     }
-
 }
