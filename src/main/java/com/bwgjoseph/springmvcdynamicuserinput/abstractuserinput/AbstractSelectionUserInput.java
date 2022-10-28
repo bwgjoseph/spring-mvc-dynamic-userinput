@@ -1,6 +1,6 @@
 package com.bwgjoseph.springmvcdynamicuserinput.abstractuserinput;
 
-import com.bwgjoseph.springmvcdynamicuserinput.userinput.InferredInputType;
+import com.bwgjoseph.springmvcdynamicuserinput.userinput.InferableSelection;
 import com.bwgjoseph.springmvcdynamicuserinput.userinput.InputType;
 import com.bwgjoseph.springmvcdynamicuserinput.userinput.UserInput;
 
@@ -10,11 +10,11 @@ import lombok.ToString;
 /**
  * Base class for Selection And SelectionFreeText User Input
  * <p>
- * Accept a generic type <b>S</b> of a bounded parameter of {@link Enum} & {@link InferredInputType}
+ * Accept a generic type <b>S</b> of a bounded parameter of {@link Enum} & {@link InferableSelection}
  */
 @ToString
 @NoArgsConstructor
-public abstract class AbstractSelectionUserInput<S extends Enum<S> & InferredInputType> implements UserInput  {
+public abstract class AbstractSelectionUserInput<S extends Enum<S> & InferableSelection> implements UserInput  {
     /**
      * Stores the actual value input by the user, no matter the input type
      */

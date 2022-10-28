@@ -5,6 +5,8 @@ package com.bwgjoseph.springmvcdynamicuserinput.userinput;
  * <p>
  * For Selection/SelectionFreeText, it should be implemented in the `enum` class
  */
-public interface InferredInputType {
-    InputType getInferredInputType();
+public interface InferableSelection {
+    default InputType getInferredInputType() {
+        return InputType.SELECTION;
+    }
 }
