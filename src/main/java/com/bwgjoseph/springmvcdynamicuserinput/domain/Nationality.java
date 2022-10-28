@@ -1,12 +1,11 @@
 package com.bwgjoseph.springmvcdynamicuserinput.domain;
 
-import com.bwgjoseph.springmvcdynamicuserinput.userinput.InferredInputType;
-import com.bwgjoseph.springmvcdynamicuserinput.userinput.InputType;
+import com.bwgjoseph.springmvcdynamicuserinput.userinput.InferableSelection;
 
 /**
  * Selection ONLY
  */
-public enum Nationality implements InferredInputType {
+public enum Nationality implements InferableSelection {
     SINGAPOREAN("Singaporean"),
     MALAYSIAN("Malaysian");
 
@@ -18,10 +17,5 @@ public enum Nationality implements InferredInputType {
 
     public String getValue() {
         return this.value;
-    }
-
-    @Override
-    public InputType getInferredInputType() {
-        return InputType.SELECTION;
     }
 }

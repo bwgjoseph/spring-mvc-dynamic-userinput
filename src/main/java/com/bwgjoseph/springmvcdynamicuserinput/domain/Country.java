@@ -1,12 +1,12 @@
 package com.bwgjoseph.springmvcdynamicuserinput.domain;
 
-import com.bwgjoseph.springmvcdynamicuserinput.userinput.InferredInputType;
+import com.bwgjoseph.springmvcdynamicuserinput.userinput.InferableSelection;
 import com.bwgjoseph.springmvcdynamicuserinput.userinput.InputType;
 
 /**
  * Selection + FreeText
  */
-public enum Country implements InferredInputType {
+public enum Country implements InferableSelection {
     SINGAPORE,
     MALAYSIA,
     OTHERS {
@@ -15,9 +15,4 @@ public enum Country implements InferredInputType {
             return InputType.FREETEXT;
         }
     };
-
-    @Override
-    public InputType getInferredInputType() {
-        return InputType.SELECTION;
-    }
 }
