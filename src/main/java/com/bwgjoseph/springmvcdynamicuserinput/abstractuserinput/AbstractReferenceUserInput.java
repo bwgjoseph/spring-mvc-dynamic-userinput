@@ -8,6 +8,7 @@ import com.bwgjoseph.springmvcdynamicuserinput.userinput.InputType;
 import com.bwgjoseph.springmvcdynamicuserinput.userinput.ReferentialRecord;
 import com.bwgjoseph.springmvcdynamicuserinput.userinput.UserInput;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -37,20 +38,20 @@ public abstract class AbstractReferenceUserInput<R extends ReferentialRecord> im
     /**
      * The collection of the reference value
      */
-    protected String collection;
+    protected String ref;
 
     protected AbstractReferenceUserInput(String inputValue, InputType inputType) {
         this.value = inputValue;
         this.inputType = inputType;
         this.referenceValue = null;
-        this.collection = "";
+        this.ref = "";
     }
 
     protected AbstractReferenceUserInput(String inputValue, InputType inputType, R person) {
         this.value = inputValue;
         this.inputType = inputType;
         this.referenceValue = person;
-        this.collection = person.getCollection();
+        this.ref = person.getCollection();
     }
 
     /**
@@ -77,6 +78,7 @@ public abstract class AbstractReferenceUserInput<R extends ReferentialRecord> im
      *
      * @return String user input value
      */
+    @JsonProperty("id")
     @Override
     public String getValue() {
         return this.value;
@@ -87,7 +89,7 @@ public abstract class AbstractReferenceUserInput<R extends ReferentialRecord> im
      *
      * @return collection name of reference entity
      */
-    public String getCollection() {
-        return this.collection;
+    public String getRef() {
+        return this.ref;
     }
 }

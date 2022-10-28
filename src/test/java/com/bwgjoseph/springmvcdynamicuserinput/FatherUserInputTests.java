@@ -18,6 +18,6 @@ class FatherUserInputTests {
         Assertions.assertThat(this.cut.getValue()).isEqualTo("123456");
         Assertions.assertThat(this.cut.getReferenceValue()).isEqualTo(personFromDb);
         Assertions.assertThat(this.cut.getInputType()).isEqualTo(InputType.REFERENCE);
-        Assertions.assertThat(this.cut.getCollection()).isEqualTo("person");
+        Assertions.assertThat(this.cut.getRef()).isEqualTo("person");
     }
 }

@@ -29,7 +29,7 @@ public class Person {
 }
 ```
 
-![userinputv2](userinputv2.png)
+![userinputv3](userinputv3.png)
 
 ## Background
 
@@ -76,24 +76,24 @@ And the document that will be stored in the database
     "name": "hello",
     "nationality": {
         "value": "SINGAPOREAN",
-        "inputType": "SELECTION",
-        "selectionValue": "SINGAPOREAN"
+        "selectionValue": "SINGAPOREAN",
+        "inputType": "SELECTION"
     },
     "placeOfBirth": {
         "value": "SINGAPO1RE",
-        "inputType": "FREETEXT",
-        "selectionValue": "OTHERS"
+        "selectionValue": "OTHERS",
+        "inputType": "FREETEXT"
     },
     "father": {
-        "value": "633421fb64082a7561f90bd0",
-        "inputType": "REFERENCE",
-        "collection": "person"
+        "id": "633421fb64082a7561f90bd0",
+        "ref": "person",
+        "inputType": "REFERENCE"
     },
     "mother": {
-        "value": "non-reference freetext",
-        "inputType": "FREETEXT",
-        "collection": ""
-    },
+        "id": "non-reference freetext",
+        "ref": "",
+        "inputType": "FREETEXT"
+    }
 }
 ```
 
@@ -118,8 +118,8 @@ Given that `nationality` accepts only `SINGAPOREAN and MALAYSIAN`, it can be onl
     "name": "hello",
     "nationality": {
         "value": "SINGAPOREAN",
-        "inputType": "SELECTION",
-        "selectionValue": "SINGAPOREAN"
+        "selectionValue": "SINGAPOREAN",
+        "inputType": "SELECTION"
     }
 }
 ```
@@ -159,8 +159,8 @@ Given that `placeOfBirth` accepts only `SINGAPORE, MALAYSIA and OTHERS`, we can 
     "name": "hello",
     "placeOfBirth": {
         "value": "SINGAPORE",
-        "inputType": "SELECTION",
-        "selectionValue": "SINGAPORE"
+        "selectionValue": "SINGAPORE",
+        "inputType": "SELECTION"
     }
 }
 ```
@@ -202,8 +202,8 @@ Do we take in `OTHERS` as a valid input? Or it should throw an `BAD_REQUEST`? Be
     "name": "hello",
     "placeOfBirth": {
         "value": "OTHERS",
-        "inputType": "SELECTION",
-        "selectionValue": "OTHERS"
+        "selectionValue": "OTHERS",
+        "inputType": "SELECTION"
     }
 }
 ```
@@ -259,9 +259,9 @@ Given that `father` accept only reference value, it has to ensure that if the re
     "id": "6334515b508c95326902ffa0",
     "name": "hello",
     "father": {
-        "value": "633421fb64082a7561f90bd0",
-        "inputType": "REFERENCE",
-        "collectionName": "person"
+        "id": "633421fb64082a7561f90bd0",
+        "ref": "person",
+        "inputType": "REFERENCE"
     }
 }
 ```
@@ -304,9 +304,9 @@ Given that `mother` accepts either reference value, or a freetext, it needs to v
     "id": "63344e08508c95326902ff9b",
     "name": "hello",
     "mother": {
-        "value": "non-reference freetext",
-        "inputType": "FREETEXT",
-        "collectionName": ""
+        "id": "non-reference freetext",
+        "ref": "",
+        "inputType": "FREETEXT"
     }
 }
 ```
@@ -337,23 +337,23 @@ record PersonDTO(String name, String nationality, String placeOfBirth, String fa
     "name": "hello",
     "nationality": {
         "value": "SINGAPOREAN",
-        "inputType": "SELECTION",
-        "selectionValue": "SINGAPOREAN"
+        "selectionValue": "SINGAPOREAN",
+        "inputType": "SELECTION"
     },
     "placeOfBirth": {
         "value": "SINGAPORE",
-        "inputType": "SELECTION",
-        "selectionValue": "SINGAPORE"
+        "selectionValue": "SINGAPORE",
+        "inputType": "SELECTION"
     },
     "father": {
-        "value": "633421fb64082a7561f90bd0",
-        "inputType": "REFERENCE",
-        "collectionName": "person"
+        "id": "633421fb64082a7561f90bd0",
+        "ref": "person",
+        "inputType": "REFERENCE"
     },
     "mother": {
-        "value": "non-reference freetext",
-        "inputType": "FREETEXT",
-        "collectionName": ""
+        "id": "non-reference freetext",
+        "ref": "",
+        "inputType": "FREETEXT"
     }
 }
 ```
@@ -378,9 +378,8 @@ As shown above, the output is exactly the same as the previously method. Note th
     "name": "hello",
     "placeOfBirth": {
         "value": "SINGAPORE",
-        "inputType": "FREETEXT",
         "selectionValue": "SINGAPORE",
-        "validInputType": false
+        "inputType": "FREETEXT"
     }
 }
 ```

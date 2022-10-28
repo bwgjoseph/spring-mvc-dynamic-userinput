@@ -17,7 +17,7 @@ class MotherUserInputTests {
         Assertions.assertThat(this.cut.getValue()).isEqualTo("123456");
         Assertions.assertThat(this.cut.getReferenceValue()).isEmpty();
         Assertions.assertThat(this.cut.getInputType()).isEqualTo(InputType.FREETEXT);
-        Assertions.assertThat(this.cut.getCollection()).isEmpty();
+        Assertions.assertThat(this.cut.getRef()).isEmpty();
     }
 
     @Test
@@ -28,6 +28,6 @@ class MotherUserInputTests {
         Assertions.assertThat(this.cut.getValue()).isEqualTo("123456");
         Assertions.assertThat(this.cut.getReferenceValue().get()).isEqualTo(personFromDb);
         Assertions.assertThat(this.cut.getInputType()).isEqualTo(InputType.REFERENCE);
-        Assertions.assertThat(this.cut.getCollection()).isEqualTo("person");
+        Assertions.assertThat(this.cut.getRef()).isEqualTo("person");
     }
 }
